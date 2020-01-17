@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
@@ -37,12 +37,12 @@ class User
     private $firstName;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="date")
      */
     private $birthDate;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $creationDate;
 
@@ -99,24 +99,24 @@ class User
         return $this;
     }
 
-    public function getBirthDate(): ?int
+    public function getBirthDate(): ?\DateTimeInterface
     {
         return $this->birthDate;
     }
 
-    public function setBirthDate(int $birthDate): self
+    public function setBirthDate(?\DateTimeInterface $BirthDate): self
     {
-        $this->birthDate = $birthDate;
+        $this->birthDate = $BirthDate;
 
         return $this;
     }
 
-    public function getCreationDate(): ?int
+    public function getCreationDate(): ?\DateTimeInterface
     {
         return $this->creationDate;
     }
 
-    public function setCreationDate(int $creationDate): self
+    public function setCreationDate(?\DateTimeInterface $creationDate): self
     {
         $this->creationDate = $creationDate;
 
