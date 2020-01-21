@@ -102,4 +102,5 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
     {
         return $this->urlGenerator->generate('app_login');
     }
+
 }
