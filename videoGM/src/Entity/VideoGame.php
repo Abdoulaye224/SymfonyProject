@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+
+use Symfony\Component\Validator\Constraints as Assert;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,19 +35,17 @@ class VideoGame
     private $description;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\Type(type="DateTime")
      */
     private $releaseDate;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\editor", mappedBy="videoGame", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Editor", inversedBy="videoGame")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $editor;
 
-    public function __construct()
-    {
-        $this->editor = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -89,46 +88,50 @@ class VideoGame
         return $this;
     }
 
-    public function getReleaseDate(): ?int
+    public function getReleaseDate(): ?\DateTimeInterface
     {
         return $this->releaseDate;
     }
 
-    public function setReleaseDate(int $releaseDate): self
+    public function setReleaseDate(?\DateTimeInterface $releaseDate): self
     {
         $this->releaseDate = $releaseDate;
 
         return $this;
     }
 
-    /**
-     * @return Collection|editor[]
-     */
-    public function getEditor(): Collection
+
+    public function getEditor(): ?Editor
     {
         return $this->editor;
     }
 
-    public function addEditor(editor $editor): self
+    public function setEditor(?Editor $editor): self
     {
-        if (!$this->editor->contains($editor)) {
-            $this->editor[] = $editor;
-            $editor->setVideoGame($this);
-        }
+        $this->editor = $editor;
 
         return $this;
     }
+   //public function addEditor(editor $editor): self
+   //{
+   //    if (!$this->editor->contains($editor)) {
+   //        $this->editor[] = $editor;
+   //        $editor->setVideoGame($this);
+   //    }
 
-    public function removeEditor(editor $editor): self
-    {
-        if ($this->editor->contains($editor)) {
-            $this->editor->removeElement($editor);
-            // set the owning side to null (unless already changed)
-            if ($editor->getVideoGame() === $this) {
-                $editor->setVideoGame(null);
-            }
-        }
+   //    return $this;
+   //}
 
-        return $this;
-    }
+   //public function removeEditor(editor $editor): self
+   //{
+   //    if ($this->editor->contains($editor)) {
+   //        $this->editor->removeElement($editor);
+   //        // set the owning side to null (unless already changed)
+   //        if ($editor->getVideoGame() === $this) {
+   //            $editor->setVideoGame(null);
+   //        }
+   //    }
+
+   //    return $this;
+   //}
 }

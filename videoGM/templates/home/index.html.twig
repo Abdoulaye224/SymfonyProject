@@ -25,14 +25,14 @@
                     {% endif %}
                 </td>
                 <td>
-                    {% if is_granted('ROLE_USER') %}
-                        <a href="{{ path('videogm_list') }}">Liste des jeux videos</a>
-                    {% endif %}
+                        <a href="{{ path('videoGame_list') }}">Liste des jeux videos</a>
+                </td>
+                <td>
+                        <a href="{{ path('editor_list') }}">Liste des éditeurs</a>
                 </td>
                 <td>
                     <a href="{{ path('user-create') }}">Créer un compte</a>
                 </td>
-
             </tr>
         </table>
     </div>

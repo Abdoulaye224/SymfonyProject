@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EditorRepository")
@@ -27,10 +30,14 @@ class Editor
     private $nationality;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\VideoGame", inversedBy="editor")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToMany(targetEntity="App\Entity\VideoGame", mappedBy="editor")
      */
     private $videoGame;
+
+    public function __construct()
+    {
+        $this->videoGame = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -61,15 +68,11 @@ class Editor
         return $this;
     }
 
-    public function getVideoGame(): ?VideoGame
+    /**
+     * @return Collection|VideoGame[]
+     */
+    public function getVideoGame(): Collection
     {
         return $this->videoGame;
-    }
-
-    public function setVideoGame(?VideoGame $videoGame): self
-    {
-        $this->videoGame = $videoGame;
-
-        return $this;
     }
 }
