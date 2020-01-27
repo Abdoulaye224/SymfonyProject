@@ -14,7 +14,8 @@
             {# légèrement différent de php avec foreach userList as user #}
             {% for videoGame in videoGame_list %}
             <li>titre : {{ videoGame.title }} ; support : {{ videoGame.support|upper }} - description : {{ videoGame.description }} - Date de sortie : {{ videoGame.releaseDate|date('d F Y') }}
-                - fait par l'editeur N° : {{ videoGame.getEditor.getId  }} - {{ videoGame.getEditor.getSocietyName }}
+                - fait par l'editeur N° : {{ videoGame.getEditor.getId  }} - {{ videoGame.getEditor.getSocietyName }}     <a href="{{ path('details', {'id': videoGame.id}) }}">Voir détails</a>
+
                 {% endfor %}
         </ul>
     </div>

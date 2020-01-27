@@ -58,4 +58,12 @@ class VideoGameController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/details/{id}", name="details")
+     */
+    public function videoGameDetails($id){
+        $videoGame = $this->videoGameRepository->find($id);
+        return $this->render('video_game/details.html.twig', ['jeu' => $videoGame]);
+    }
 }

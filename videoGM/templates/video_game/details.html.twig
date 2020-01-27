@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ asset('../../node_modules/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/microcms.css') }}" rel="stylesheet">
+    <title>MicroCMS - {{ jeu.title }}</title>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-target">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse-target">
+            </div>
+        </div><!-- /.container -->
+    </nav>
+    <p>
+            nous aurons ici les détails du jeu N° {{ jeu.id }} avec le titre : {{ jeu.title }} </p>
+    </footer>
+</div>
+</body>
+</html>
