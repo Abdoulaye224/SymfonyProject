@@ -1,0 +1,12 @@
+       <li><strong>Nom:</strong> {{ editor.name }} </li>
+       <li><strong>Nationalité:</strong> {{ editor.nationality }} </li>
+        <li><strong> Société:</strong> {{ editor.societyName }}</li>
+        {%if editor.videoGame is not empty %}
+            <ul>
+                <h2>cet éditeur a édité {{ editor.getVideoGame|length }} Jeux vidéos dont :</h2>
+        {% for edit in editor.videoGame %}
+            <li>{{ edit.title }}</li>
+        {% endfor %}
+    </ul>
+    </ul>
+{% endif %}

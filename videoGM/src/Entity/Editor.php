@@ -83,6 +83,13 @@ class Editor
         return $this->videoGame;
     }
 
+    public function setVideoGame(VideoGame $videoGame){
+        if(!$this->videoGame->contains($videoGame)){
+            $this->videoGame[] = $videoGame;
+            $videoGame->setEditor($this);
+        }
+    }
+
     public function getName(): ?string
     {
         return $this->name;

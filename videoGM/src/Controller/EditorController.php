@@ -63,6 +63,7 @@ class EditorController extends AbstractController
      */
     public function editorDetails($id){
         $editor = $this->editorRepository->find($id);
+
         return $this->render('editor/details.html.twig', ['editor' => $editor]);
     }
 }

@@ -4,7 +4,8 @@ namespace App\Entity;
 
 
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -112,12 +113,13 @@ class VideoGame
 
         return $this;
     }
-   //public function addEditor(editor $editor): self
-   //{
-   //    if (!$this->editor->contains($editor)) {
-   //        $this->editor[] = $editor;
-   //        $editor->setVideoGame($this);
-   //    }
+   public function addEditor(editor $editor): self
+   {
+       if (!$this->editor->contains($editor)) {
+           $this->editor[] = $editor;
+           $editor->setVideoGame($this);
+       }
+   }
 
    //    return $this;
    //}
