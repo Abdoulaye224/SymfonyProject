@@ -13,8 +13,11 @@
         <ul>
             {# légèrement différent de php avec foreach userList as user #}
             {% for editor in editorList %}
-                <li>Société : {{ editor.societyName }} ; Nationalité : {{ editor.nationality|upper }}
-            {% endfor %}
+                <li>editeur({{ editor.id }}) : {{ editor.name }} ; {% if is_granted('ROLE_USER') %}   Société : {{ editor.societyName }}
+                        <a href="{{ path('editorDetails', {'id': editor.id}) }}">Voir détails</a>
+                    {% endif %}
+                </li>
+                    {% endfor %}
         </ul>
     </div>
 {% endblock %}

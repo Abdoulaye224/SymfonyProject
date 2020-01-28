@@ -57,4 +57,12 @@ class EditorController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/editorDetails/{id}", name="editorDetails")
+     */
+    public function editorDetails($id){
+        $editor = $this->editorRepository->find($id);
+        return $this->render('editor/details.html.twig', ['editor' => $editor]);
+    }
 }

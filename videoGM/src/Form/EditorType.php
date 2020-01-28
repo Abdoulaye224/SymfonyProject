@@ -17,6 +17,7 @@ class EditorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('name', TextType::class)
             ->add('societyName', TextType::class)
             ->add('nationality', TextareaType::class)
             ->add('submit', SubmitType::class)

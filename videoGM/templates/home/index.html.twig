@@ -28,7 +28,10 @@
                         <a href="{{ path('videoGame_list') }}">Liste des jeux videos</a>
                 </td>
                 <td>
-                        <a href="{{ path('editor_list') }}">Liste des éditeurs</a>
+                    {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('editor_list') }}">Liste des éditeurs</a>
+                    {% endif %}
+
                 </td>
                 <td>
                     <a href="{{ path('user-create') }}">Créer un compte</a>
