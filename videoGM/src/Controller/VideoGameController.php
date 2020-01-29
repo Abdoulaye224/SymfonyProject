@@ -6,10 +6,12 @@ use App\Entity\VideoGame;
 use App\Form\VideoGameType;
 use App\Repository\VideoGameRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use App\Controller\EditorController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 
 class VideoGameController extends AbstractController
@@ -66,4 +68,54 @@ class VideoGameController extends AbstractController
         $videoGame = $this->videoGameRepository->find($id);
         return $this->render('video_game/details.html.twig', ['jeu' => $videoGame]);
     }
+
+    /**
+     * @Route("/deleteVG-bis/{id}", name="videoGame_delete_bis")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function deleteBis(string $id, EntityManagerInterface $entityManager)
+    {
+        $videoGame = $this->videoGameRepository->find($id);
+        $entityManager->remove($videoGame);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('videoGame_list');
+    }
+
+    /**
+     * @Route("/deleteVG/{id}", name="videoGame_delete")
+     * @ParamConverter("videoGame", options={"mapping"={"id"="id"}})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function delete(VideoGame $videoGame, EntityManagerInterface $entityManager)
+    {
+        $entityManager->remove($videoGame);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('videoGame_list');
+    }
+
+    /**
+     * @Route("/editVG/{id}", name="videoGame_edit")
+     * @ParamConverter("videoGame", options={"mapping"={"id"="id"}})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function update(Request $request, VideoGame $videoGame)
+    {
+        $form = $this->createForm(VideoGameType::class, $videoGame);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($videoGame);
+            $this->entityManager->flush();
+            $this->addFlash('notice', "Le jeu a bien été modifié");
+
+            return $this->redirectToRoute('videoGame_list');
+        }
+        return $this->render('video_game/editVG.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
 }

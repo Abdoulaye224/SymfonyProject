@@ -43,7 +43,7 @@ class VideoGame
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Editor", inversedBy="videoGame")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="SET NULL")
      */
     private $editor;
 

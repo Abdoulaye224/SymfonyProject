@@ -32,6 +32,7 @@ class Editor
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\VideoGame", mappedBy="editor")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $videoGame;
 
