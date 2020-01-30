@@ -14,16 +14,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 
 class UserController extends AbstractController
 {
     private $userRepository;
     private $eventDispatcher;
+    private $entityManager;
 
-    public function __construct(UserRepository $userRepository, EventDispatcherInterface $eventDispatcher)
+    public function __construct(UserRepository $userRepository, EventDispatcherInterface $eventDispatcher, EntityManagerInterface $entityManager)
     {
         $this->userRepository = $userRepository;
         $this->eventDispatcher = $eventDispatcher;
+        $this->entityManager = $entityManager;
     }
     /**
      * @Route("/user_list", name="user_list")
@@ -67,6 +71,55 @@ class UserController extends AbstractController
         }
         return $this->render('user/new.html.twig', [
             'userForm' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/delete-bis/{id}", name="user_delete_bis")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function deleteBis(string $id, EntityManagerInterface $entityManager)
+    {
+        $user = $this->userRepository->find($id);
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('user_list');
+    }
+
+    /**
+     * @Route("/deleteUser/{id}", name="user_delete")
+     * @ParamConverter("user", options={"mapping"={"id"="id"}})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function delete(user $user, EntityManagerInterface $entityManager)
+    {
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('user_list');
+    }
+
+    /**
+     * @Route("/editUser/{id}", name="user_edit")
+     * @ParamConverter("user", options={"mapping"={"id"="id"}})
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function update(Request $request, user $user)
+    {
+        $form = $this->createForm(userType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+            $this->addFlash('notice', "L'utilisateur a bien été modifié");
+
+            return $this->redirectToRoute('user_list');
+        }
+        return $this->render('user/editVG.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }
