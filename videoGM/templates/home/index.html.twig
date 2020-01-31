@@ -16,22 +16,22 @@
             <tr>
                 <td>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                        <a href="{{ path('app_logout') }}">Déconnecter</a>
                     {% else %}
-                        <a href="{{ path('app_login') }}">Se connecter</a>
+                        <a href="{{ path('app_login') }}">Se_connecter</a>
                     {% endif %}
                 </td>
                 <td>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('user_list') }}">Liste des utilisateur</a>
+                        <a href="{{ path('user_list') }}">Liste_des_utilisateur</a>
                     {% endif %}
                 </td>
                 <td>
-                        <a href="{{ path('videoGame_list') }}">Liste des jeux videos</a>
+                        <a href="{{ path('videoGame_list') }}">Liste_des_jeux_videos</a>
                 </td>
                 <td>
                     {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('editor_list') }}">Liste des éditeurs</a>
+                    <a href="{{ path('editor_list') }}">Liste_des_éditeurs</a>
                     {% endif %}
 
                 </td>

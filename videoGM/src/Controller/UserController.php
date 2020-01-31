@@ -105,13 +105,15 @@ class UserController extends AbstractController
      * @ParamConverter("user", options={"mapping"={"id"="id"}})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function update(Request $request, user $user)
+    public function update(Request $request, user $user, UserPasswordEncoderInterface $passwordEncoder)
     {
         $form = $this->createForm(userType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $this->addFlash('notice', "L'utilisateur a bien été modifié");
@@ -122,4 +124,6 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
 }
