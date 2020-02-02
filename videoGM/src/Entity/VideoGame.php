@@ -22,6 +22,8 @@ class VideoGame
 
     /**
      * @ORM\Column(type="string", length=100)
+     * * @Assert\Length(min="2", minMessage="Le titre est trop petit",
+     *      max="255", maxMessage="Le titre est trop long")
      */
     private $title;
 
@@ -32,6 +34,7 @@ class VideoGame
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Regex("/^\w+/")
      */
     private $description;
 

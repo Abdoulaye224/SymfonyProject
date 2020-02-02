@@ -32,6 +32,8 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Le nom de famille ne peut pas être vide")
+     * @Assert\Length(min="2", minMessage="Le nom est trop petit",
+     *      max="255", maxMessage="Le nom est trop long")
      */
     private $lastName;
 
