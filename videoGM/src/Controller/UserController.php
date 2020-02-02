@@ -73,6 +73,7 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             // enregistrer les nouveaux objets et object modifié en base de donnée
             $entityManager->flush();
+            $this->addFlash('success', "L'utilisateur a bien été crée");
 
             return $this->redirectToRoute('login');
 
@@ -91,6 +92,7 @@ class UserController extends AbstractController
         $user = $this->userRepository->find($id);
         $entityManager->remove($user);
         $entityManager->flush();
+        $this->addFlash('notice', "L'utilisateur a bien été supprimé");
 
         return $this->redirectToRoute('user_list');
     }
@@ -104,6 +106,8 @@ class UserController extends AbstractController
     {
         $entityManager->remove($user);
         $entityManager->flush();
+
+        $this->addFlash('notice', "L'utilisateur a bien été supprimé");
 
         return $this->redirectToRoute('user_list');
     }
