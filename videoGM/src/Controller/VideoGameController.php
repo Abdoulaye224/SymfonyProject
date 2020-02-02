@@ -6,6 +6,7 @@ use App\Entity\VideoGame;
 use App\Form\VideoGameType;
 use App\Repository\VideoGameRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use http\Client\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -118,4 +119,22 @@ class VideoGameController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/favoriteList", name="favoriteList")
+     * @param VideoGame $videoGame
+     * @IsGranted("ROLE_USER")
+     * @return \Symfony\Component\HttpFoundation\Response
+
+    public function addFavoriteList($id, EntityManagerInterface $entityManager){
+
+        $videoGame = $this->videoGameRepository->find($id);
+        $user = $this->getUser();
+        $user->addFavoriteList($videoGame);
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'ajouter au Favori avec succes');
+
+        return $this->render('video_game/favorite.html.twig', ['jeu' => $videoGame], ['user' => $user]);
+    }*/
 }

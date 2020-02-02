@@ -28,7 +28,7 @@ class VideoGameType extends AbstractType
             ->add('editor', EntityType::class, [
                 'class' =>Editor::class,
                 'choice_label' =>function(Editor $editor) {
-                return $editor->getId() . ' ' . $editor->getSocietyName();
+                return $editor->getId() . '-' . $editor->getName();
                 }
             ])
             ->add('submit', SubmitType::class)
