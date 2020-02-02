@@ -41,6 +41,14 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/login", name="login")
+     */
+    public function log()
+    {
+        $userList = $this->userRepository->findAll();
+        return $this->render('security/login.html.twig');
+    }
+    /**
      * @Route("/user-create", name="user-create")
      */
     public function newAction(
@@ -66,7 +74,7 @@ class UserController extends AbstractController
             // enregistrer les nouveaux objets et object modifié en base de donnée
             $entityManager->flush();
 
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute('login');
 
         }
         return $this->render('user/new.html.twig', [
@@ -112,8 +120,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
+
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $this->addFlash('notice', "L'utilisateur a bien été modifié");
