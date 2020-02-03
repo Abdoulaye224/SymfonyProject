@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -17,7 +19,8 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(name="email", type="string", unique=true)
+     * @Assert\Email
      */
     private $email;
 
@@ -27,24 +30,40 @@ class User
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le nom de famille ne peut pas être vide")
+     * @Assert\Length(min="2", minMessage="Le nom est trop petit",
+     *      max="255", maxMessage="Le nom est trop long")
      */
     private $lastName;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le prénom ne peut pas être vide")
+     * @Assert\Length(min="2", minMessage="Le prénom est trop petit",
+     *      max="255", maxMessage="Le prénom est trop long")
      */
     private $firstName;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $birthDate;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $creationDate;
+
+     /**
+      * @ORM\Column(type="simple_array")
+      */
+    private $roles;
+
+    public function __construct()
+    {
+        $this->roles = ['ROLE_USER'];
+    }
 
     public function getId(): ?int
     {
@@ -63,12 +82,13 @@ class User
         return $this;
     }
 
-    public function getPassword(): ?string
+
+    public function getPassword()
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $password)
     {
         $this->password = $password;
 
@@ -99,27 +119,53 @@ class User
         return $this;
     }
 
-    public function getBirthDate(): ?int
+    public function getBirthDate(): ?\DateTimeInterface
     {
         return $this->birthDate;
     }
 
-    public function setBirthDate(int $birthDate): self
+    public function setBirthDate(?\DateTimeInterface $BirthDate): self
     {
-        $this->birthDate = $birthDate;
+        $this->birthDate = $BirthDate;
 
         return $this;
     }
 
-    public function getCreationDate(): ?int
+    public function getCreationDate(): ?\DateTimeInterface
     {
         return $this->creationDate;
     }
 
-    public function setCreationDate(int $creationDate): self
+    public function setCreationDate(?\DateTimeInterface $creationDate): self
     {
         $this->creationDate = $creationDate;
 
         return $this;
+    }
+
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): User
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function eraseCredentials()
+    {
     }
 }
