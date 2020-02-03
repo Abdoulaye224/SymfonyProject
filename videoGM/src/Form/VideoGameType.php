@@ -31,7 +31,7 @@ class VideoGameType extends AbstractType
                 return $editor->getId() . '-' . $editor->getName();
                 }
             ])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, ['label' => "Valider"])
         ;
     }
 

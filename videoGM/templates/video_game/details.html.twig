@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Details/{{ jeu.title }} {% endblock %}
+{% block title %} Détails/{{ jeu.title }} {% endblock %}
 
 {% block body %}
 <style>
@@ -16,18 +16,18 @@
 {% include 'layout/navbar.html.twig'%}
 
     <div class="example-wrapper">
-        <h1>{{ 'Détail_du_jeu '|trans }}{{ jeu.id }}</h1>
+        <h1>{{ 'Détail du jeu '|trans }}{{ jeu.id }}</h1>
         <ul>
-            <li>Titre: {{ jeu.title|upper }}</li>
-            <li>Support: {{ jeu.support }}</li>
-            <li>Description: {{ jeu.description }}</li>
-            <li>Date de Sortie: {{ jeu.releaseDate|date('d F Y') }}</li>
+            <li> Titre: {{ jeu.title|upper }}</li>
+            <li> Support: {{ jeu.support }}</li>
+            <li> Description: {{ jeu.description }}</li>
+            <li> Date de Sortie: {{ jeu.releaseDate|date('d F Y') }}</li>
         </ul>
         <H2>Informations sur l'éditeur, éditeur N° {{ jeu.getEditor.id }}</H2>
         <ul>
-            <li>Nom: {{ jeu.getEditor.Name|upper }}</li>
-            <li>Societé: {{ jeu.getEditor.societyName }}</li>
-            <li>Nationalité: {{ jeu.getEditor.nationality }}</li>
+            <li> Nom: {{ jeu.getEditor.Name|upper }}</li>
+            <li> Societé: {{ jeu.getEditor.societyName }}</li>
+            <li> Nationalité: {{ jeu.getEditor.nationality }}</li>
         </ul>
     </div>
 </html>

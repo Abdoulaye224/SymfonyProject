@@ -10,10 +10,10 @@
     {% include 'layout/navbar.html.twig'%}
 
     <div class="example-wrapper">
-        <h1>Vous êtes connecté</h1>
+        <h1 style="color:grey">Vous êtes connecté</h1>
         <br>
         {% if app.user is defined %}
-            <h2>Bonjour {{ app.user.firstName }}</h2>
+            <h2 style="color:grey">Bonjour {{ app.user.firstName }}</h2>
         {% endif %}
          </div>
 {% endblock %}

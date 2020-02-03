@@ -1,4 +1,5 @@
 <div class="example-wrapper">
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
     <table>
         <tr>
             <td>
@@ -15,6 +16,7 @@
             </td>
             <td>
                 {% if is_granted('ROLE_USER') %}
+                
                     <a href="{{ path('user_list') }}">Liste des utilisateurs</a>
                 {% endif %}
             </td>
@@ -25,4 +27,5 @@
             </td>
         </tr>
     </table>
+    </nav>
 </div>

@@ -26,7 +26,7 @@ class UserProfileType extends AbstractType
                 'first_options' => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => "Confirmez le mot de passe"],
             ])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, ['label' => "Valider"])
 
         ;
     }
