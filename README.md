@@ -12,7 +12,7 @@ Avoir installé Symfony n'est pas vraiment obligatoir, après avoir clone le pro
 
 3 - docker-compose exec web php bin/console doctrine:migration:migrate (pour créer toutes les tables qu'il faut dans la base de données, ou faire la mise à jour de base pour ceux qui travaillent déjà sur un tel projet)
 
-4 - (optionnel) docker-compose exec web php bin/console doctrine/fixture:load (pour générer des fake données afin de pouvoir tester l'application)
+4 - (optionnel) docker-compose exec web php bin/console doctrine:fixtures:load (pour générer des fake données afin de pouvoir tester l'application)
 
 ------->>>>>> L'application est lancé sur le port 8010 
 
