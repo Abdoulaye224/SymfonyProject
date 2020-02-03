@@ -1,4 +1,5 @@
-# Projet Jeu vidéos réalisé par : Abdoulaye Traoe & Nour Hannafi
+# Projet Jeu vidéos réalisé par :
+Abdoulaye Traoe & Nour Hannafi
 
 
 # SymfonyProject
