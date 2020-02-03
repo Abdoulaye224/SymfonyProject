@@ -17,7 +17,7 @@
         <ul>
             {# légèrement différent de php avec foreach userList as user #}
             {% for editor in editorList %}
-                <li>editeur({{ editor.id }}) : {{ editor.name }} ; {% if is_granted('ROLE_USER') %}   Société : {{ editor.societyName }}
+                <li>Editeur N°({{ editor.id }}) : {{ editor.name }} ; {% if is_granted('ROLE_USER') %}   Société : {{ editor.societyName }}
                     {% endif %}
                     {% if is_granted("ROLE_ADMIN") %}
                         <a href="{{ path('editor_edit', {'id': editor.id}) }}" style="color: yellowgreen;">Editer</a>
@@ -29,7 +29,7 @@
                 </li>
                     {% endfor %}
             {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('editor-create') }}">Créer un nouvel editeur</a>
+            <a href="{{ path('editor-create') }}">Créer un nouvel éditeur</a>
             {% endif %}
         </ul>
     </div>
