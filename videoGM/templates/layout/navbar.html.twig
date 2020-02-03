@@ -19,15 +19,15 @@
                     </td>
                     <td>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('user_list') }}">Liste_des_utilisateurs</a>
+                            <a href="{{ path('user_list') }}">Liste des utilisateurs</a>
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{{ path('videoGame_list') }}">Liste_des_jeux_videos</a>
+                        <a href="{{ path('videoGame_list') }}">Liste des jeux videos</a>
                     </td>
                     <td>
                         {% if is_granted('ROLE_USER') %}
-                            <a href="{{ path('editor_list') }}">Liste_des_éditeurs</a>
+                            <a href="{{ path('editor_list') }}">Liste des éditeurs</a>
                         {% endif %}
 
                     </td>
@@ -38,7 +38,7 @@
                                 <a href="{{ path('profile') }}">Votre profil</a>
                             {% endif %}
                         {% else %}
-                            <a href="{{ path('user-create') }}">Créer_un_compte</a>
+                            <a href="{{ path('user-create') }}">Créer un compte</a>
                         {% endif %}
                     </td>
                 </tr>

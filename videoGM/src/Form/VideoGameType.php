@@ -18,7 +18,7 @@ class VideoGameType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class)
+            ->add('title', TextType::class, ['label' => "Titre"])
             ->add('support', TextareaType::class)
             ->add('description', TextareaType::class)
             ->add('releaseDate', DateType::class, [
