@@ -1,3 +1,6 @@
+# Projet Jeu vidéos réalisé par : Abdoulaye Traoe & Nour Hannafi
+
+
 # SymfonyProject
 
 *******************Ce projet fonctionne avec docker************************* 
