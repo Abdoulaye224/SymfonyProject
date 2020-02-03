@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -25,15 +26,23 @@ class HomeController extends AbstractController
      * @Route("/profile", name="profile")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
-    public function profileAction(Request $request, EntityManagerInterface $entityManager): Response
+    public function profileAction(Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(UserProfileType::class, $user);
 
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+         $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+
+                   $user->setPassword($password);
+
             $entityManager->persist($user);
             $entityManager->flush();
+
+            return $this->redirectToRoute('app_logout');
+
         }
 
         return $this->render('user/profile.html.twig', [
