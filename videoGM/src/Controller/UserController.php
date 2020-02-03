@@ -17,6 +17,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
+
 class UserController extends AbstractController
 {
     private $userRepository;
@@ -72,6 +73,8 @@ class UserController extends AbstractController
             $user->setCreationDate(new \DateTime('now'));
             $entityManager->persist($user);
             // enregistrer les nouveaux objets et object modifié en base de donnée
+            $this->eventDispatcher->dispatch(new UserRegisteredEvent ($user));
+            dump($this->eventDispatcher);
             $entityManager->flush();
             $this->addFlash('success', "L'utilisateur a bien été crée");
 

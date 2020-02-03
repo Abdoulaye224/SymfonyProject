@@ -17,19 +17,22 @@
         <ul>
             {# légèrement différent de php avec foreach userList as user #}
             {% for videoGame in videoGame_list %}
-            <li>titre : {{ videoGame.title }} ; support : {{ videoGame.support|upper }} - description : {{ videoGame.description }} - Date de sortie : {{ videoGame.releaseDate|date('d F Y') }}
-         {% if videoGame.getEditor is not empty %}- fait par :{{ videoGame.getEditor.Name  }}
-                {% endif %}
-                <a href="{{ path('details', {'id': videoGame.id}) }}">Voir détails</a>
+            <li>titre : {{ videoGame.title }} ;
+             support : {{ videoGame.support|upper }} 
+            -description : {{ videoGame.description }} 
+            - <span>Date de sortie</span> : {{ videoGame.releaseDate|date('d F Y') }}
+            {% if videoGame.getEditor is not empty %}- fait par :{{ videoGame.getEditor.Name  }}{% endif %}
+                <br>
+                <button><a href="{{ path('details', {'id': videoGame.id}) }}"> Voir détails </a></button>
 
                 {% if is_granted("ROLE_ADMIN") %}
-                    <a href="{{ path('videoGame_edit', {'id': videoGame.id}) }}" style="color: yellowgreen;">Editer</a>
-                    <a href="{{ path('videoGame_delete', {'id': videoGame.id}) }}" style="color: #C82829;">Supprimer</a>
+                    <button ><a href="{{ path('videoGame_edit', {'id': videoGame.id}) }}" style="color: yellowgreen;"> Editer </a></button>
+                    <button><a href="{{ path('videoGame_delete', {'id': videoGame.id}) }}" style="color: #C82829;"> Supprimer </a></button>
                 {% endif %}
                 {% endfor %}
         </ul>
         {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('videoGame-create') }}">Créer un nouveau Jeu </a>
+            <a href="{{ path('videoGame-create') }}"> Créer un nouveau Jeu </a>
         {% endif %}
     </div>
 {% endblock %}
