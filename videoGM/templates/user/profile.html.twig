@@ -17,12 +17,12 @@
         {% endfor %}
         <h1>{{ 'Votre Profile :'|trans }}</h1>
         <ul>
-            <li>Nom: {{ user.lastName|upper }}</li>
-            <li>Prénom: {{ user.firstName }}</li>
-            <li>Email: {{ user.email }}</li>
-            <li>Date de naissance: {{ user.birthDate|date('d F Y') }}</li>
+            <li> Nom: {{ user.lastName|upper }}</li>
+            <li> Prénom: {{ user.firstName }}</li>
+            <li> Email: {{ user.email }}</li>
+            <li> Date de naissance: {{ user.birthDate|date('d F Y') }}</li>
         </ul>
-        <h2 style="color: blue">Modifier votre profile : </h2>
+        <h2 style="color: blue"> Modifier votre profile : </h2>
         {{ form(form) }}
     </div>
 {% endblock %}
