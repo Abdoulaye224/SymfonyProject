@@ -1,4 +1,4 @@
-# Projet Jeu vidéos réalisé par :
+# Projet Jeux vidéos réalisé par :
 Abdoulaye Traoe & Nour Hannafi
 
 
